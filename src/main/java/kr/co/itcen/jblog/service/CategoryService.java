@@ -8,18 +8,20 @@ import kr.co.itcen.jblog.vo.CategoryVo;
 
 @Service
 public class CategoryService {
+	
 	@Autowired
 	CategoryDao categoryDao;
 	
 	public void insertDefault(String userId) {
 		CategoryVo vo = new CategoryVo();
 		vo.setUserId(userId);
-		vo.setName("기타");
+		vo.setName("기타");	
 		vo.setDescription("default");
 		insert(vo);
 	}
 	
 	public void insert(CategoryVo vo) {
+		
 		categoryDao.insert(vo);
 	}
 }

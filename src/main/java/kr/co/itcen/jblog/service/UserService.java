@@ -12,14 +12,20 @@ import kr.co.itcen.jblog.vo.UserVo;
 @Service
 public class UserService {
 	
-	@Autowired
 	UserDao userDao;
+	CategoryService categoryService;
+	BlogService blogService;
+	
+	@Autowired
+	public UserService(UserDao userDao, CategoryService categoryService, BlogService blogService) {
+		this.userDao = userDao;
+		this.categoryService = categoryService;
+		this.blogService = blogService;
+	}
 	
 	public void JoinMember(UserVo vo) {
-		CategoryService categoryService = new CategoryService();
 		categoryService.insertDefault(vo.getId());
 		
-		BlogService blogService = new BlogService();
 		blogService.insertDefault(vo.getId());
 
 		userDao.insert(vo);
