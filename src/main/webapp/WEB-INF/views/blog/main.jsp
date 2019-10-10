@@ -12,15 +12,17 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blogVo.title }</h1>
 			<ul>
 			<c:choose>
-				<c:when test="${authUser }">
+				<c:when test="${empty authUser }">
 					<li><a href="${pageContext.servletContext.contextPath }/user/auth">로그인</a></li>				
 				</c:when>
-				<c:otherwise>
+				<c:otherwise>	
 					<li><a href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.servletContext.contextPath }/admin">블로그 관리</a></li>
+					<c:if test="${isBlogOwner }">
+						<li><a href="${pageContext.servletContext.contextPath }/blog/admin-basic">블로그 관리</a></li>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 			</ul>
@@ -37,11 +39,10 @@
 					<p>
 				</div>
 				<ul class="blog-list">
-					<li><a href="">Spring Camp 2016 참여기</a> <span>2015/05/02</span>	</li>
-					<li><a href="">Spring Boot 사용법 정리</a> <span>2015/05/02</span>	</li>
-					<li><a href="">Spring Security 설정법</a> <span>2015/05/02</span>	</li>
-					<li><a href="">JPA + Hinernate</a> <span>2015/05/02</span>	</li>
-					<li><a href="">AOP 활용하기 - DAO 실행시간 측정하기</a> <span>2015/05/02</span>	</li>
+				<c:forEach items='${postList }' var='vo'>
+					<li><a href="${pageContext.servletContext.contextPath }/blog/main/${vo.userId }/${vo.categoryNo }/${vo.no }">${vo.title }</a> <span>${vo.regDate}</span>	</li>
+				</c:forEach>
+					
 				</ul>
 			</div>
 		</div>
@@ -55,10 +56,9 @@
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
+				<c:forEach items='${categoryList }' var='vo'>
+					<li><a href="${pageContext.servletContext.contextPath }/blog/main/${vo.userId}/${vo.no}">${vo.name }</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 		

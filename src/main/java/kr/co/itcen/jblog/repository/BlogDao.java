@@ -16,4 +16,10 @@ public class BlogDao {
 		return (count == 1);
 	}
 
+	public BlogVo get(String userId) {
+		BlogVo vo = sqlSession.selectOne("blog.get", userId);
+		
+		return vo;
+	}
+
 }

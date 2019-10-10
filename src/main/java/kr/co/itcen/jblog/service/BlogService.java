@@ -11,16 +11,13 @@ public class BlogService {
 	@Autowired
 	BlogDao blogDao;
 	
-	public void insertDefault(String userId) {
-		BlogVo blogVo = new BlogVo();
-		blogVo.setUserId(userId);
-		blogVo.setTitle("jblog");
-		blogVo.setLogo("/images/defalt.jpg");
-		insert(blogVo);
-	}
 	public void insert(BlogVo vo) {
 		blogDao.insert(vo);
 	}
-	
+
+	public BlogVo get(String userId) {
+		BlogVo vo = blogDao.get(userId);
+		return vo;
+	}
 	
 }

@@ -1,5 +1,7 @@
 package kr.co.itcen.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +14,11 @@ public class CategoryService {
 	@Autowired
 	CategoryDao categoryDao;
 	
-	public void insertDefault(String userId) {
-		CategoryVo vo = new CategoryVo();
-		vo.setUserId(userId);
-		vo.setName("기타");	
-		vo.setDescription("default");
-		insert(vo);
-	}
-	
 	public void insert(CategoryVo vo) {
-		
 		categoryDao.insert(vo);
+	}
+
+	public List<CategoryVo> getList(String userId) {
+		return categoryDao.getList(userId);
 	}
 }
