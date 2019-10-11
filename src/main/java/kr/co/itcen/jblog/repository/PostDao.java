@@ -14,24 +14,25 @@ public class PostDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	/**
-	 * 
-	 * 가장 최근의 Post를 불러온다
-	 * 
-	 */
-	public PostVo getByCategoryNo(Long categoryNo) {	
-		return sqlSession.selectOne("post.getLastPost", categoryNo);
-	}
-
-	public PostVo getByPostNo(Long postNo) {
+	public PostVo get(Long postNo) {
 		return sqlSession.selectOne("post.get", postNo);
 	}
 
 	public List<PostVo> getList(Long categoryNo) {
-		PostVo vo = new PostVo();
-		vo.setUserId(userId);
-		vo.setCategoryNo(categoryNo);
-		return sqlSession.selectList("post.getList", vo);
+		return sqlSession.selectList("post.getList", categoryNo);
+	}
+
+	public PostVo getLast(Long categoryNo) {
+		return sqlSession.selectOne("post.getLast", categoryNo);
+	}
+
+	public Long getCountByCategory(Long categoryNo) {
+		return sqlSession.selectOne("post.getCountByCategoryNo", categoryNo);
+	}
+
+	public Boolean insert(PostVo vo) {
+		int count = sqlSession.insert("post.insert", vo);
+		return (count == 1);
 	}
 
 

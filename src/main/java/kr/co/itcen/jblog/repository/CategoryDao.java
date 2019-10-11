@@ -22,5 +22,11 @@ public class CategoryDao {
 	public List<CategoryVo> getList(String userId) {
 		return sqlSession.selectList("category.getList", userId);
 	}
+	
+	public Long getFirstCategoryNo(String userId) {
+		return sqlSession.selectOne("category.getCategoryNo", userId);
+	}
+
+	
 
 }

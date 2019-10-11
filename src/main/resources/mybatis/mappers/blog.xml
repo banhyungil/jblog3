@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog">
+	<resultMap type="blogvo" id="blogResult">
+		<result column="user_id" property="userId"/>
+	</resultMap>
 	<insert id="insert" parameterType="blogvo">
 		<![CDATA[
 			insert into blog(user_id, title, logo)
@@ -8,9 +11,9 @@
 		]]>	
 	</insert>
 	
-	<select id="get" parameterType="String" resultType="blogvo">
+	<select id="get" parameterType="String" resultType="blogvo" resultMap="blogResult">
 		<![CDATA[
-			select title, logo
+			select user_id, title, logo
 			from blog
 			where user_id=#{_parameter}
 		]]>

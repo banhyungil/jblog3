@@ -26,7 +26,7 @@ public class UserService {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setUserId(vo.getId());
 		blogVo.setTitle("jblog");
-		blogVo.setLogo("/images/defalt.jpg");
+		blogVo.setLogo("default.jpg");
 		blogDao.insert(blogVo);	
 		
 		CategoryVo categoryVo = new CategoryVo();

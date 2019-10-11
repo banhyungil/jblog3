@@ -14,28 +14,9 @@ public class PostService {
 	
 	@Autowired
 	PostDao postDao;
-	
-	@Autowired
-	CategoryDao categoryDao;
-	
-	public PostVo getDefaultPost() {
-		Long categoryNo = 
-		PostVo vo = postDao.get(userId);
-		return vo;
-	}
 
-	public PostVo getFirstPostOfCategory(Long categoryNo) {
-		PostVo vo = postDao.get(categoryNo);
-		return vo;
-	}
-
-	public PostVo get(Long postNo) {
-		PostVo vo = postDao.get(postNo);
-		return vo;
-	}
-
-	public List<PostVo> getList(String userId, Long categoryNo) {
-		return postDao.getList(userId, categoryNo);
+	public void insert(PostVo vo) {
+		postDao.insert(vo);
 	}
 	
 }

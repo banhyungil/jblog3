@@ -14,8 +14,17 @@
 	<select id="getList" parameterType="String" resultType="categoryvo" resultMap="categoryResult">
 		<![CDATA[
 			select no, name, user_id
+			from category c
+			where user_id=#{_parameter}
+		]]>
+	</select>
+	<select id="getCategoryNo" parameterType="String" resultType="Long">
+		<![CDATA[
+			select no
 			from category
 			where user_id=#{_parameter}
+			order by no
+			limit 1
 		]]>
 	</select>
 </mapper>

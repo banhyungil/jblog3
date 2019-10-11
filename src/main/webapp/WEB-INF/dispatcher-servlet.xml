@@ -35,8 +35,9 @@
 			</bean>
 		</mvc:message-converters>
 
-		<!-- <mvc:argument-resolvers> <bean class="kr.co.itcen.mysite.security.AuthUserHandlerMethodArgumentResolver"/> 
-			</mvc:argument-resolvers> -->
+		<mvc:argument-resolvers> 
+			<bean class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver"/> 
+		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
@@ -56,7 +57,7 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/auth" />
 			<mvc:exclude-mapping path="/user/logout" />
-			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:exclude-mapping path="/images/**" />
 			<bean class="kr.co.itcen.jblog.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -71,6 +72,7 @@
 		<property name="order" value="1" />
 	</bean>
 	
+	<mvc:resources location="file:/uploads/" mapping="/images/**"/>
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver" 
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
