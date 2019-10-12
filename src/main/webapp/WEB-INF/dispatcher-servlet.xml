@@ -57,11 +57,13 @@
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/auth" />
 			<mvc:exclude-mapping path="/user/logout" />
-			<mvc:exclude-mapping path="/images/**" />
+			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="kr.co.itcen.jblog.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-
+	
+	<mvc:resources location="file:/uploads/" mapping="/assets/images/**"/>
+	
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -72,7 +74,7 @@
 		<property name="order" value="1" />
 	</bean>
 	
-	<mvc:resources location="file:/uploads/" mapping="/images/**"/>
+	
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver" 
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

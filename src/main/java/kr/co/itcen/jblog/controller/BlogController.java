@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.itcen.jblog.security.Auth;
+import kr.co.itcen.jblog.security.AuthRole;
 import kr.co.itcen.jblog.security.AuthUser;
 import kr.co.itcen.jblog.service.BlogService;
 import kr.co.itcen.jblog.service.CategoryService;
@@ -39,22 +40,11 @@ public class BlogController {
 	public String main(@PathVariable String userId,
 			@AuthUser UserVo authUser,
 			Model model) {
-		Boolean isBlogOwner = false;
 		
-		//1.블로그 입장시 블로그 주인인지 확인
-		//1-1.로그인된 유저인지 확인
-		if(authUser != null) {
-			String authUserId = authUser.getId();
-			
-			//1-2.블로그 주인인지 확인
-			if(authUserId.equals(userId)) {
-				isBlogOwner = true;
-				model.addAttribute("isBlogOwner", isBlogOwner);
-			}
-		}
 		
-		Map map = blogService.getMainInfo(userId);
+		Map<String, Object> map = blogService.getMainInfo(userId);
 		model.addAllAttributes(map);
+		System.out.println("123123");
 		return "blog/main";
 	}
 	
@@ -79,7 +69,7 @@ public class BlogController {
 		return "blog/main";
 	}
 	
-
+	@Auth(AuthRole.ADMIN)
 	@RequestMapping(value="/admin-basic/{userId}", method=RequestMethod.GET)
 	public String adminBasic(@PathVariable String userId,
 			Model model) {
@@ -88,6 +78,7 @@ public class BlogController {
 		return "blog/admin-basic";
 	}
 	
+	@Auth(AuthRole.ADMIN)
 	@RequestMapping(value="/admin-category/{userId}", method=RequestMethod.GET)
 	public String adminCategory(@PathVariable String userId,
 			Model model) {
@@ -99,6 +90,7 @@ public class BlogController {
 		return "blog/admin-category";
 	}
 	
+	@Auth(AuthRole.ADMIN)
 	@RequestMapping(value="/admin-write/{userId}", method=RequestMethod.GET)
 	public String adminWrite(@PathVariable String userId,
 			Model model) {
@@ -113,6 +105,7 @@ public class BlogController {
 	 * 넘어온 Post데이터를 기반으로 insert를 한다
 	 * blog/main으로 돌아갈 때 userId와 CategoryNo를 넘겨준다
 	 */
+	@Auth(AuthRole.ADMIN)
 	@RequestMapping(value="/writePost", method=RequestMethod.POST)
 	public String writePost(PostVo postVo,
 			@RequestParam(value="userId", required=true) String userId) {
