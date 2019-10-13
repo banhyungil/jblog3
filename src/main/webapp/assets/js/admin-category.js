@@ -1,7 +1,7 @@
 function addCategory(){
 	var sendData = $("#form-cat-add").serialize();
 	var contextPath = $("#contextPath").val();
-	var catListLength = $("#catListLength").val();
+	var catListLength = Number($("#catListLength").val());
 	var userId = $("#userId").val();
 	$("#name").val("");
 	$("#description").val("");
@@ -13,13 +13,13 @@ function addCategory(){
 		data : sendData,
 		success : function(response){
 			$("#category-list").append("<tr>"+ 
-										"<td>"+ (catListLength + 1) + "<td>" +
-										"<td>"+ response.data.name + "<td>" +
-										"<td>"+ 0 + "<td>" +
-										"<td>"+ response.data.description + "<td>" +
+										"<td>"+ (catListLength + 1) + "</td>" +
+										"<td>"+ response.data.name + "</td>" +
+										"<td>"+ 0 + "</td>" +
+										"<td>"+ response.data.description + "</td>" +
 										"<td>" +
-										"<img> src=" + contextPath + "/assets/images/delete.jpg " + "value=" +
-										response.data.no + " onclik='deleteCategory()'" +  
+										"<img src='" + contextPath + "/assets/images/delete.jpg' " + "value='" +
+										response.data.no + "' onclik='deleteCategory()'>" +  
         								"</td></tr>");
 			
 		},
@@ -31,12 +31,14 @@ function addCategory(){
 
 function deleteCategory(){
 	var contextPath = $("#contextPath").val();
-	var userId = $("$userId").val();
+	var userId = $("#userId").val();
+	var categoryNo = $(this).attr('id');
+	console.info(categoryNo)
 	$.ajax({
-		url : "${pageContext.servletContext.contextPath}/blog/${blogVo.userId}/deleteCategory}",
+		url : contextPath + "/blog/api/" + userId + "/deleteCategory",
 		type : "POST",
 		dataType : "json",
-		data : {categoryNo :  $(this).val()},
+		data : {"categoryNo" : 0},
 		success : function(response){
 			
 		},

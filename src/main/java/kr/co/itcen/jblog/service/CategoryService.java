@@ -18,10 +18,11 @@ public class CategoryService {
 	@Autowired
 	PostDao postDao;
 	
-	public void insert(CategoryVo vo) {
+	public Long insertAndGetKey(CategoryVo vo) {
 		categoryDao.insert(vo);
+		return categoryDao.getLastKey();
 	}
-
+	
 	public List<CategoryVo> getList(String userId) {
 		return categoryDao.getList(userId);
 	}

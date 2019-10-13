@@ -12,7 +12,7 @@
 <title>JBlog</title>
 <Link rel="stylesheet" href="${contextPath}/assets/css/jblog.css">
 <script type="text/javascript" src="${contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript" src="${contextPath }/assets/js/admin-category.js"></script>
+<script type="text/javascript" src="${contextPath }/assets/js/admin-category.js?ver=14"></script>
 </head>
 <body>
 	<!-- 비동기 통신을 위한 데이터 -->
@@ -42,7 +42,7 @@
 							<td>${vo.description }</td>
 							<td>
 							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg" 
-							value="${vo.no }" onclick="deleteCategory()">													
+							id="${vo.no }" onclick="deleteCategory()">													
 							</td>
 						</tr>  
 		      		</c:forEach>		  

@@ -11,9 +11,14 @@
 			values(null, #{name}, now(), #{description}, #{userId})
 		]]>	
 	</insert>
+	<select id="getLastKey" resultType="Long">
+		<![CDATA[
+			select last_insert_id()
+		]]>
+	</select>
 	<select id="getList" parameterType="String" resultType="categoryvo" resultMap="categoryResult">
 		<![CDATA[
-			select no, name, user_id
+			select no, name, description, user_id
 			from category c
 			where user_id=#{_parameter}
 		]]>
@@ -27,9 +32,12 @@
 			limit 1
 		]]>
 	</select>
-	<select id="get">
+	<select id="get" parameterType="Long" resultType="categoryvo" resultMap="categoryResult">
 		<![CDATA[
-			select no, name, user_id
+			select no, name, description, user_id
+			from category
+			where no=${_parameter}
 		]]>
 	</select>
+	
 </mapper>

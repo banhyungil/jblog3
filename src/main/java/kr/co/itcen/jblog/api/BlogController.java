@@ -1,8 +1,6 @@
 package kr.co.itcen.jblog.api;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +24,8 @@ public class BlogController {
 	public JsonResult insertCategory(@PathVariable String userId,
 			CategoryVo categoryVo){
 		
-		categoryService.insert(categoryVo);
-		return JsonResult.success(categoryService.get(categoryVo.getNo()));
+		Long categoryNo = categoryService.insertAndGetKey(categoryVo);
+		return JsonResult.success(categoryService.get(categoryNo));
 	}
 	
 	@ResponseBody

@@ -14,11 +14,16 @@ public class CategoryDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public Boolean insert(CategoryVo vo) {
+	public boolean insert(CategoryVo vo) {
 		int count = sqlSession.insert("category.insert", vo);
+		
 		return (count == 1);
 	}
 
+	public Long getLastKey() {
+		Long key = sqlSession.selectOne("category.getLastKey");
+		return key;
+	}
 	public List<CategoryVo> getList(String userId) {
 		return sqlSession.selectList("category.getList", userId);
 	}
