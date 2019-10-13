@@ -27,4 +27,9 @@
 			limit 1
 		]]>
 	</select>
+	<select id="get">
+		<![CDATA[
+			select no, name, user_id
+		]]>
+	</select>
 </mapper>

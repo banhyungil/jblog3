@@ -54,15 +54,12 @@
 			<bean class="kr.co.itcen.jblog.security.LogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/user/auth" />
-			<mvc:exclude-mapping path="/user/logout" />
-			<mvc:exclude-mapping path="/assets/**" />
+			<mvc:mapping path="/blog/**" />
 			<bean class="kr.co.itcen.jblog.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
-	<mvc:resources location="file:/uploads/" mapping="/assets/images/**"/>
+	<mvc:resources location="file:/uploads/" mapping="/local/images/**"/>
 	
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"

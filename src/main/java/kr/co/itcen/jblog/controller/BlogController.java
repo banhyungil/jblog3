@@ -23,8 +23,8 @@ import kr.co.itcen.jblog.vo.PostVo;
 import kr.co.itcen.jblog.vo.UserVo;
 
 
-@RequestMapping("/blog")
-@Controller
+@RequestMapping("/blog/{userId}")
+@Controller("blogController1")
 public class BlogController {
 	
 	@Autowired
@@ -36,19 +36,16 @@ public class BlogController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value="/main/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String main(@PathVariable String userId,
 			@AuthUser UserVo authUser,
 			Model model) {
-		
-		
 		Map<String, Object> map = blogService.getMainInfo(userId);
 		model.addAllAttributes(map);
-		System.out.println("123123");
 		return "blog/main";
 	}
 	
-	@RequestMapping(value="/main/{userId}/{categoryNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/main/{categoryNo}", method=RequestMethod.GET)
 	public String main(@PathVariable String userId,
 			@PathVariable Long categoryNo,
 			Model model) {
@@ -58,7 +55,7 @@ public class BlogController {
 		return "blog/main";
 	}
 	
-	@RequestMapping(value="/main/{userId}/{categoryNo}/{postNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/main/{categoryNo}/{postNo}", method=RequestMethod.GET)
 	public String main(@PathVariable String userId,
 			@PathVariable Long categoryNo,
 			@PathVariable Long postNo,
@@ -70,7 +67,7 @@ public class BlogController {
 	}
 	
 	@Auth(AuthRole.ADMIN)
-	@RequestMapping(value="/admin-basic/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/admin-basic", method=RequestMethod.GET)
 	public String adminBasic(@PathVariable String userId,
 			Model model) {
 		BlogVo blogVo = blogService.get(userId);
@@ -79,7 +76,7 @@ public class BlogController {
 	}
 	
 	@Auth(AuthRole.ADMIN)
-	@RequestMapping(value="/admin-category/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/admin-category", method=RequestMethod.GET)
 	public String adminCategory(@PathVariable String userId,
 			Model model) {
 		BlogVo blogVo = blogService.get(userId);
@@ -91,7 +88,7 @@ public class BlogController {
 	}
 	
 	@Auth(AuthRole.ADMIN)
-	@RequestMapping(value="/admin-write/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/admin-write", method=RequestMethod.GET)
 	public String adminWrite(@PathVariable String userId,
 			Model model) {
 		BlogVo blogVo = blogService.get(userId);
@@ -108,9 +105,9 @@ public class BlogController {
 	@Auth(AuthRole.ADMIN)
 	@RequestMapping(value="/writePost", method=RequestMethod.POST)
 	public String writePost(PostVo postVo,
-			@RequestParam(value="userId", required=true) String userId) {
+			@PathVariable String userId) {
 		
 		postService.insert(postVo);
-		return "redirect:/blog/main/" + userId + "/" + postVo.getCategoryNo();
+		return "redirect:/blog/" + userId + "/main/" + postVo.getCategoryNo();
 	}
 }	

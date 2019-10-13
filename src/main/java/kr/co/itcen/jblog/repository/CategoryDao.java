@@ -27,6 +27,15 @@ public class CategoryDao {
 		return sqlSession.selectOne("category.getCategoryNo", userId);
 	}
 
+	public CategoryVo get(Long no) {
+		return sqlSession.selectOne("category.get", no);
+	}
+
+	public Boolean delete(Long no) {
+		int count = sqlSession.delete("category.delete",no);
+		return (count == 1);
+	}
+
 	
 
 }

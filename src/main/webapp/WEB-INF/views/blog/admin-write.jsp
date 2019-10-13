@@ -17,8 +17,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/include/admin-menu.jsp"/>
-				<form action="${pageContext.servletContext.contextPath }/blog/writePost" method="post">
-					<input type="hidden" name="userId" value="${blogVo.userId }">
+				<form action="${pageContext.servletContext.contextPath }/blog/${blogVo.userId }/writePost" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>

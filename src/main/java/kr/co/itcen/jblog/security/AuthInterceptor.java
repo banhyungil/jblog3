@@ -24,7 +24,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+		System.out.println(request.getRequestURI());
+		System.out.println(request.getMethod());
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 		
@@ -32,7 +33,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		if(auth == null)
 			return true;
 		
-		System.out.println("auth :" +  auth.value());
 		 
 		//auth가있는경우, Admin Page로 가는경우
 		HttpSession session = request.getSession();

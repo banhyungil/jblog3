@@ -28,7 +28,6 @@ public class CategoryService {
 
 	public List<CategoryVo> getListWithPostCount(String userId) {
 		List<CategoryVo> list = getList(userId);
-		System.out.println(list.toString());
 		for(CategoryVo vo : list) {
 			Long postCount = postDao.getCountByCategory(vo.getNo());
 			//Post가 없는 경우
@@ -39,5 +38,13 @@ public class CategoryService {
 		}
 		
 		return list;
+	}
+
+	public CategoryVo get(Long no) {
+		return categoryDao.get(no);
+	}
+
+	public Boolean delete(Long no) {
+		return categoryDao.delete(no);
 	}
 }
