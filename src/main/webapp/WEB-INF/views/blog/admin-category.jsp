@@ -12,11 +12,10 @@
 <title>JBlog</title>
 <Link rel="stylesheet" href="${contextPath}/assets/css/jblog.css">
 <script type="text/javascript" src="${contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
-<script type="text/javascript" src="${contextPath }/assets/js/admin-category.js?ver=14"></script>
+<script type="text/javascript" src="${contextPath }/assets/js/admin-category.js?ver=6"></script>
 </head>
 <body>
 	<!-- 비동기 통신을 위한 데이터 -->
-	<input type="hidden" id="catListLength" value="${fn:length(categoryList) }">
 	<input type="hidden" id=contextPath value="${contextPath }">
 	<input type="hidden" id=userId value="${userId }">
 	<div id="container">
@@ -35,20 +34,21 @@
 		      			<th>삭제</th>      			
 		      		</tr>
 		      		<c:forEach items='${categoryList }' var='vo' varStatus='status'>
-		      			<tr>
+		      			<tr id="tr-contain-img${vo.no}">
 							<td>${status.count }</td>
 							<td>${vo.name }</td>
 							<td>${vo.postCount }</td>
 							<td>${vo.description }</td>
 							<td>
 							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg" 
-							id="${vo.no }" onclick="deleteCategory()">													
+							id="${vo.no }" onclick="deleteCategory(this)">													
 							</td>
 						</tr>  
 		      		</c:forEach>		  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
+      			<input type="hidden" id="catListLength" value="${fn:length(categoryList) }">
       			<form id="form-cat-add">
       				<table id="admin-cat-add">
 			      		<tr>

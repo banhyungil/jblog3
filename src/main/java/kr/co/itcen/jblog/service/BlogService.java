@@ -83,5 +83,9 @@ public class BlogService {
 		
 		return map;
 	}
+
+	public void update(BlogVo blogVo) {
+		blogDao.update(blogVo);
+	}
 	
 }

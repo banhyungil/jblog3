@@ -21,6 +21,11 @@ public class BlogDao {
 		
 		return vo;
 	}
+
+	public Boolean update(BlogVo blogVo) {
+		int count = sqlSession.update("blog.update", blogVo);
+		return (count==1);
+	}
 	
 
 }

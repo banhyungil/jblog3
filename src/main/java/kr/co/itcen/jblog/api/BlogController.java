@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.itcen.jblog.dto.JsonResult;
+import kr.co.itcen.jblog.security.Auth;
 import kr.co.itcen.jblog.service.CategoryService;
 import kr.co.itcen.jblog.vo.CategoryVo;
 
@@ -19,6 +20,7 @@ public class BlogController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Auth
 	@ResponseBody
 	@RequestMapping(value="/insertCategory", method=RequestMethod.POST)
 	public JsonResult insertCategory(@PathVariable String userId,
@@ -28,6 +30,7 @@ public class BlogController {
 		return JsonResult.success(categoryService.get(categoryNo));
 	}
 	
+	@Auth
 	@ResponseBody
 	@RequestMapping(value="/deleteCategory", method=RequestMethod.POST)
 	public JsonResult deleteCategory(@PathVariable String userId,

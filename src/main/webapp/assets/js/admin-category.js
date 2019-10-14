@@ -29,18 +29,18 @@ function addCategory(){
 	});
 }
 
-function deleteCategory(){
+function deleteCategory(thisObj){
 	var contextPath = $("#contextPath").val();
 	var userId = $("#userId").val();
-	var categoryNo = $(this).attr('id');
-	console.info(categoryNo)
+	var categoryNo = thisObj.getAttribute('id');
+
 	$.ajax({
 		url : contextPath + "/blog/api/" + userId + "/deleteCategory",
 		type : "POST",
 		dataType : "json",
-		data : {"categoryNo" : 0},
+		data : {"categoryNo" : categoryNo},
 		success : function(response){
-			
+			$("#tr-contain-img"+categoryNo).remove();
 		},
 		error : function(xhr, error){
 			

@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.itcen.jblog.security.Auth;
 import kr.co.itcen.jblog.security.AuthRole;
 import kr.co.itcen.jblog.security.AuthUser;
 import kr.co.itcen.jblog.service.BlogService;
 import kr.co.itcen.jblog.service.CategoryService;
+import kr.co.itcen.jblog.service.FileUploadService;
 import kr.co.itcen.jblog.service.PostService;
 import kr.co.itcen.jblog.vo.BlogVo;
 import kr.co.itcen.jblog.vo.CategoryVo;
@@ -35,6 +37,9 @@ public class BlogController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	FileUploadService fileUploadService;
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String main(@PathVariable String userId,
@@ -110,4 +115,19 @@ public class BlogController {
 		postService.insert(postVo);
 		return "redirect:/blog/" + userId + "/main/" + postVo.getCategoryNo();
 	}
+	
+	@Auth(AuthRole.ADMIN)
+	@RequestMapping(value="/updateBlog", method=RequestMethod.POST)
+	public String updateBlog(@PathVariable(value="userId", required=true) String userId,
+			@RequestParam(value="multipartFile", required=false) MultipartFile multipartFile,
+			BlogVo blogVo) {
+		
+		String logo = fileUploadService.getUrl(multipartFile);
+		blogVo.setUserId(userId);
+		blogVo.setLogo(logo);
+		blogService.update(blogVo);
+		
+		return "redirect:/blog/" + userId + "/main";
+	}
 }	
+
