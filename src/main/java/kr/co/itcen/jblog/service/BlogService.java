@@ -84,7 +84,8 @@ public class BlogService {
 		return map;
 	}
 
-	public void update(BlogVo blogVo) {
+	public void updateBlog(BlogVo blogVo) {
+		//만약 로고가 들어왔으면 os에 file삭제하고 변경작업을 한다.
 		blogDao.update(blogVo);
 	}
 	

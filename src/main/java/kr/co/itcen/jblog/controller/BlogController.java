@@ -125,7 +125,7 @@ public class BlogController {
 		String logo = fileUploadService.getUrl(multipartFile);
 		blogVo.setUserId(userId);
 		blogVo.setLogo(logo);
-		blogService.update(blogVo);
+		blogService.updateBlog(blogVo);
 		
 		return "redirect:/blog/" + userId + "/main";
 	}
