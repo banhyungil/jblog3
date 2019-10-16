@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
 			request
 			.getRequestDispatcher("/WEB-INF/views/error/exception.jsp")
 			.forward(request, response);;
-		}
+		}	
 		
 	}
 }

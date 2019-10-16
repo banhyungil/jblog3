@@ -1,8 +1,14 @@
 package kr.co.itcen.jblog.vo;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
+	@NotEmpty(message="아이디를 입력해주실래요?")
 	private String id;
+	@NotEmpty(message="이름은 있으셔야죠")
 	private String name;
+	@Length(min=8)
 	private String password;
 	private String join_date;
 	
